@@ -1,32 +1,9 @@
-package com.cts.cba.invoice.entity;
+package com.cts.cba.product.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-
-@Entity
-@Table(name = "discount")
-@ApiModel(description = "Discount Details")
 public class Discount {
-	@Id
-	@Column(name = "discount_id")
-	@ApiModelProperty(notes = "Discount ID")
 	private int discountId;
-
-	@Column(name = "discount_name", nullable = false)
-	@ApiModelProperty(notes = "Discount Name")
 	private String discountName;
-
-	@Column(name = "description")
-	@ApiModelProperty(notes = "Discount Description")
 	private String description;
-
-	@Column(name = "discount_price", nullable = false)
-	@ApiModelProperty(notes = "Discount Price")
 	private double discountPrice;
 
 	public Discount() {

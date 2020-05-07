@@ -1,4 +1,4 @@
-package com.cts.cba.invoice.entity;
+package com.cts.cba.product.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

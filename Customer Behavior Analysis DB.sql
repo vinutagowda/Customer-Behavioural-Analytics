@@ -4,14 +4,24 @@ use cba_;
 create database cba;
 use cba;
 
+CREATE TABLE user (
+    user_id INT PRIMARY KEY,
+    user_name VARCHAR(15) NOT NULL UNIQUE,
+    password VARCHAR(20) NOT NULL,
+    active boolean
+);
 
+INSERT INTO user VALUES(1,'user1','1234abcd',null);
+INSERT INTO user VALUES(2,'user2','1234abcde', null);
+
+drop table user;
 show tables;
 drop database cba;
 
 CREATE TABLE customer (
-    cid INT PRIMARY KEY,
-    cat VARCHAR(5) NOT NULL,
-    cname VARCHAR(300) NOT NULL,
+    customer_id INT PRIMARY KEY,
+    customer_category VARCHAR(5) NOT NULL,
+    customer_name VARCHAR(300) NOT NULL,
     location VARCHAR(50) NOT NULL
 );
 
@@ -35,11 +45,11 @@ select * from customer;
 drop table customer;
 
 CREATE TABLE product (
-    pid INT PRIMARY KEY,
-    pname VARCHAR(500) NOT NULL,
+    product_id INT PRIMARY KEY,
+    product_name VARCHAR(500) NOT NULL,
     category VARCHAR(100) NOT NULL,
     brand VARCHAR(500) NOT NULL,
-    descr VARCHAR(2000),
+    description VARCHAR(2000),
     price DOUBLE NOT NULL,
     stock INT NOT NULL
 );
@@ -59,17 +69,32 @@ INSERT INTO product VALUES(1122,'Coffee Powder','Food & Beverages','Bru','Good',
 INSERT INTO product VALUES(1123,'Coffee Powder','Food & Beverages','Cothas','Average',93.72,5);
 INSERT INTO product VALUES(1124,'oil','Food & Beverages','SunPure','Good',68.93,50);
 INSERT INTO product VALUES(1125,'pen','Home & LifeStyle','Pavithra brite','Average',72.61,5);
+INSERT INTO product VALUES(1126,'Sugar','Food & Beverages','NSF','Good',74.69,50);
+INSERT INTO product VALUES(1127,'Frocks','Home & LifeStyle','Mayur Fashions','Good',46.33,5);
+INSERT INTO product VALUES(1128,'Green Tea Powder','Food & Beverages','TajMahal','Good',58.22,10);
+INSERT INTO product VALUES(1129,'Lakme powder','Health & Beauty','Lakme','Good',86.31,30);
+INSERT INTO product VALUES(1130,'Sandals','Home & LifeStyle','Bata','Average',85.39,5);
+INSERT INTO product VALUES(1131,'Men Watch','Accessories','HMT','Good',68.84,50);
+INSERT INTO product VALUES(1132,'Watch','Accessories','Titan','Average',73.56,10);
+INSERT INTO product VALUES(1133,'pencil','Home & LifeStyle','fusion','Good',36.26,5);
+INSERT INTO product VALUES(1134,'Sugar','Food & Beverages','Tata','Good',54.84,50);
+INSERT INTO product VALUES(1135,'Bracelet','Accessories','STA accessories','Good',25.51,5);
+INSERT INTO product VALUES(1136,'Saree','Home & LifeStyle','Mayur Fashions','Average',46.95,50);
+INSERT INTO product VALUES(1137,'Bangles','Accessories','STA Accessories','Good',71.38,20);
+INSERT INTO product VALUES(1138,'Women Watch','Ccessories','HMT','Average',93.72,5);
+INSERT INTO product VALUES(1139,'oil','Food & Beverages','Sungold','Good',68.93,50);
+INSERT INTO product VALUES(1140,'pen','Home & LifeStyle','fusion','Average',72.61,5);
 
 select * from product;
 drop table invoice;
 
 CREATE TABLE invoice (
-    iid INT PRIMARY KEY,
-    idate DATETIME NOT NULL,
-    cid INT REFERENCES customer (cid),
+    invoice_id INT PRIMARY KEY,
+    invoice_date DATETIME NOT NULL,
+    customer_id INT REFERENCES customer (customer_id),
     tax DOUBLE NOT NULL,
-    tprice DOUBLE NOT NULL,
-    paymode VARCHAR(50) NOT NULL
+    total_price DOUBLE NOT NULL,
+    payment_mode VARCHAR(50) NOT NULL
 );
 
 INSERT INTO invoice VALUES(201,'2019-07-02 10:25:00',101,26.1415,548.9715,'Debitcard');
@@ -124,13 +149,13 @@ INSERT INTO invoice VALUES(249,'2019-02-09 10:37:00',101,30.2085,634.3785,'Debit
 INSERT INTO invoice VALUES(250,'2019-03-26 18:30:00',107,29.8865,627.6165,'Cash');
 
 select * from invoice;
-drop table invoice;
+drop table invoice_product;
 
 CREATE TABLE invoice_product (
-    iid INT NOT NULL REFERENCES invoice (iid),
-    pid INT NOT NULL REFERENCES product (pid),
-    PRIMARY KEY (iid , pid),
-    qty INT NOT NULL
+    invoice_id INT NOT NULL REFERENCES invoice (invoice_id),
+    product_id INT NOT NULL REFERENCES product (product_id),
+    PRIMARY KEY (invoice_id , product_id),
+    quantity INT NOT NULL
 );
 
 INSERT INTO invoice_product VALUES(201,1111,7);
@@ -178,19 +203,24 @@ INSERT INTO invoice_product VALUES(242,1122,10);
 INSERT INTO invoice_product VALUES(243,1123,10);
 INSERT INTO invoice_product VALUES(244,1124,6);
 INSERT INTO invoice_product VALUES(245,1125,7);
-INSERT INTO invoice_product VALUES(246,1111,7);
-INSERT INTO invoice_product VALUES(247,1112,7);
-INSERT INTO invoice_product VALUES(248,1113,8);
-INSERT INTO invoice_product VALUES(249,1114,7);
-INSERT INTO invoice_product VALUES(250,1115,7);
+INSERT INTO invoice_product VALUES(246,1126,7);
+INSERT INTO invoice_product VALUES(247,1127,7);
+INSERT INTO invoice_product VALUES(248,1128,8);
+INSERT INTO invoice_product VALUES(249,1129,7);
+INSERT INTO invoice_product VALUES(250,1130,7);
+INSERT INTO invoice_product VALUES(251,1131,7);
+INSERT INTO invoice_product VALUES(247,1132,7);
+INSERT INTO invoice_product VALUES(248,1133,8);
+INSERT INTO invoice_product VALUES(249,1134,7);
+INSERT INTO invoice_product VALUES(250,1135,7);
 
 select * from invoice_product;
 
 CREATE TABLE discount (
-    did INT PRIMARY KEY,
-    dname VARCHAR(50) NOT NULL,
-    descr VARCHAR(2000),
-    dprice DOUBLE NOT NULL
+    discount_id INT PRIMARY KEY,
+    discount_name VARCHAR(50) NOT NULL,
+    description VARCHAR(2000),
+    discount_price DOUBLE NOT NULL
 );
 
 INSERT INTO discount VALUES(1,'No Discount','Zero perc discount',0);
@@ -201,9 +231,9 @@ INSERT INTO discount VALUES(4,'Super 40perc','50 perc discount',0.50);
 select * from discount;
 
 CREATE TABLE product_discount (
-    pid INT NOT NULL REFERENCES product (pid),
-    did INT NOT NULL REFERENCES discount (did),
-    PRIMARY KEY (pid , did)
+    product_id INT NOT NULL REFERENCES product (product_id),
+    discount_id INT NOT NULL REFERENCES discount (discount_id),
+    PRIMARY KEY (product_id , discount_id)
 );
 
 
@@ -224,5 +254,20 @@ INSERT INTO product_discount VALUES(1122,4);
 INSERT INTO product_discount VALUES(1123,1);
 INSERT INTO product_discount VALUES(1124,2);
 INSERT INTO product_discount VALUES(1125,3);
+INSERT INTO product_discount VALUES(1126,4);
+INSERT INTO product_discount VALUES(1127,1);
+INSERT INTO product_discount VALUES(1128,2);
+INSERT INTO product_discount VALUES(1129,3);
+INSERT INTO product_discount VALUES(1130,4);
+INSERT INTO product_discount VALUES(1131,1);
+INSERT INTO product_discount VALUES(1132,2);
+INSERT INTO product_discount VALUES(1133,3);
+INSERT INTO product_discount VALUES(1134,4);
+INSERT INTO product_discount VALUES(1135,1);
+INSERT INTO product_discount VALUES(1136,2);
+INSERT INTO product_discount VALUES(1137,3);
+INSERT INTO product_discount VALUES(1138,4);
+INSERT INTO product_discount VALUES(1139,1);
+INSERT INTO product_discount VALUES(1140,2);
 
 select * from product_discount;

@@ -1,4 +1,4 @@
-package com.cts.cba.invoice.entity;
+package com.cts.cba.product.entity;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -42,7 +42,7 @@ public class Invoice {
 
 	@ManyToMany
 	@JoinTable(name = "invoice_product", joinColumns = {
-			@JoinColumn(name = "invoice_id", referencedColumnName = "invoice_id", nullable = false), }, inverseJoinColumns = {
+			@JoinColumn(name = "invoice_id", referencedColumnName = "invoice_id", nullable = false) }, inverseJoinColumns = {
 					@JoinColumn(name = "product_id", referencedColumnName = "product_id", nullable = false) })
 	@ApiModelProperty(notes = "List of Products Purchased")
 	private List<Product> product;
@@ -121,5 +121,4 @@ public class Invoice {
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
 	}
-
 }

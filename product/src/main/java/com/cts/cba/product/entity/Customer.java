@@ -1,10 +1,32 @@
-package com.cts.cba.invoice.model;
+package com.cts.cba.product.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+@Entity
+@Table(name = "customer")
+@ApiModel(description = "Details about customer")
 public class Customer {
-
+	@Id
+	@Column(name = "customer_id")
+	@ApiModelProperty(notes = "Customer ID")
 	private int customerId;
+
+	@Column(name = "customer_name", nullable = false)
+	@ApiModelProperty(notes = "Customer Name")
 	private String customerName;
+
+	@Column(name = "customer_category", nullable = false)
+	@ApiModelProperty(notes = "Customer Category")
 	private String customerCategory;
+
+	@Column(name = "location", nullable = false)
+	@ApiModelProperty(notes = "Customer Location")
 	private String location;
 
 	public Customer() {

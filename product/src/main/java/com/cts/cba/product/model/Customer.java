@@ -1,4 +1,5 @@
-package com.cts.cba.invoice.model;
+package com.cts.cba.product.model;
+
 
 public class Customer {
 
@@ -6,9 +7,12 @@ public class Customer {
 	private String customerName;
 	private String customerCategory;
 	private String location;
-
+	
+	
 	public Customer() {
+	
 	}
+
 
 	public Customer(int customerId, String customerName, String customerCategory, String location) {
 		this.customerId = customerId;

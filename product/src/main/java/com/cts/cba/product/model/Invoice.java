@@ -1,55 +1,17 @@
-package com.cts.cba.invoice.entity;
+package com.cts.cba.product.model;
 
 import java.time.LocalDate;
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-
-@Entity
-@Table(name = "invoice")
-@ApiModel(description = "Invoice Details")
 public class Invoice {
-	@Id
-	@Column(name = "invoice_id")
-	@ApiModelProperty(notes = "Invoice ID")
 	private int invoiceId;
-
-	@Column(name = "invoice_date", nullable = false)
-	@ApiModelProperty(notes = "Invoice Date")
 	private LocalDate invoiceDate;
-
-	@Column(name = "tax", nullable = false)
-	@ApiModelProperty(notes = "GST")
 	private double tax;
-
-	@Column(name = "total_price", nullable = false)
-	@ApiModelProperty(notes = "Shopping Amount")
 	private double totalPrice;
-
-	@Column(name = "payment_mode", nullable = false)
-	@ApiModelProperty(notes = "Mode of Payment")
 	private String paymentMode;
 
-	@ManyToMany
-	@JoinTable(name = "invoice_product", joinColumns = {
-			@JoinColumn(name = "invoice_id", referencedColumnName = "invoice_id", nullable = false), }, inverseJoinColumns = {
-					@JoinColumn(name = "product_id", referencedColumnName = "product_id", nullable = false) })
-	@ApiModelProperty(notes = "List of Products Purchased")
 	private List<Product> product;
 
-	@ManyToOne
-	@JoinColumn(name = "customer_id", referencedColumnName = "customer_id")
-	@ApiModelProperty(notes = "Customer Details")
 	private Customer customer;
 
 	public Invoice() {
