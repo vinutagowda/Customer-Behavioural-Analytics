@@ -5,9 +5,8 @@ import java.util.List;
 import com.cts.cba.product.entity.Product;
 import com.cts.cba.product.service.CustomerService;
 
-import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.LogManager;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,22 +23,55 @@ import io.swagger.annotations.ApiParam;
 @RequestMapping("/customers")
 @RefreshScope
 public class CustomerController {
-    
-    private  Logger logger = LogManager.getLogger(CustomerController.class);
+
+    Logger logger = LoggerFactory.getLogger(CustomerController.class);
 
     @Autowired
-    CustomerService service;
-   
+    private CustomerService service;
+
+    // @Autowired
+    // private UserSecurityService userSecurityService;
+
+    // @Autowired
+    // private JwtUtil jwtTokenUtil;
+
+    // @Autowired
+    // private AuthenticationManager authenticationManager;
 
     @RequestMapping(method = RequestMethod.GET, value = "/soldlocationlist/{timeDuration}/{customerCategory}/{location}")
     @ApiOperation(value = "Gets list of locations", notes = "Generates list of average sales details based on customer geoagraphy")
-    List<Product> getAllByLocation(
+    public List<Product> getAllByLocation(
             @ApiParam(value = "Time duration in months", required = true) @PathVariable int timeDuration,
             @ApiParam(value = "Category of customers", required = true) @PathVariable String customerCategory,
             @ApiParam(value = "Location of customers", required = true) @PathVariable String location) {
 
-                logger.info("customer data was retieved");
+        logger.debug("Resquest: {} | {} | {}", timeDuration, customerCategory, location);
+        List<Product> list = service.getAllByLocation(timeDuration, customerCategory, location);
+        if (list.isEmpty()) {
+            throw new RuntimeException("Failed Execution !");
+        } else {
+            logger.info("Response: Successfully Executed");
+        }
 
-        return service.getAllByLocation(timeDuration, customerCategory, location);
+        return list;
+
     }
+
+    // @RequestMapping(method = RequestMethod.POST, value = "/authenticate")
+    // public ResponseEntity<?> createAuthenticationToken(@RequestBody
+    // AuthenticationRequest authenticationRequest)
+    // throws Exception {
+    // try {
+    // authenticationManager.authenticate(new
+    // UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(),authenticationRequest.getPassword()));
+    // } catch (BadCredentialsException exception) {
+    // throw new Exception("Incorrect username or password !", exception);
+    // }
+
+    // final UserDetails userDetails =
+    // userSecurityService.loadUserByUsername(authenticationRequest.getUsername());
+
+    // final String jwt = jwtTokenUtil.generateToken(userDetails);
+    // return ResponseEntity.ok(new AuthenticationResponse(jwt));
+    // }
 }

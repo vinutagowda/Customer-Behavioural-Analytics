@@ -42,7 +42,7 @@ public class Invoice {
 
 	@ManyToMany
 	@JoinTable(name = "invoice_product", joinColumns = {
-			@JoinColumn(name = "invoice_id", referencedColumnName = "invoice_id", nullable = false) }, inverseJoinColumns = {
+			@JoinColumn(name = "invoice_id", referencedColumnName = "invoice_id", nullable = false)}, inverseJoinColumns = {
 					@JoinColumn(name = "product_id", referencedColumnName = "product_id", nullable = false) })
 	@ApiModelProperty(notes = "List of Products Purchased")
 	private List<Product> product;

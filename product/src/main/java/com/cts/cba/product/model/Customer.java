@@ -1,18 +1,14 @@
 package com.cts.cba.product.model;
 
-
 public class Customer {
 
 	private int customerId;
 	private String customerName;
 	private String customerCategory;
 	private String location;
-	
-	
-	public Customer() {
-	
-	}
 
+	public Customer() {
+	}
 
 	public Customer(int customerId, String customerName, String customerCategory, String location) {
 		this.customerId = customerId;

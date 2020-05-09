@@ -5,14 +5,13 @@ create database cba;
 use cba;
 
 CREATE TABLE user (
-    user_id INT PRIMARY KEY,
     user_name VARCHAR(15) NOT NULL UNIQUE,
     password VARCHAR(20) NOT NULL,
-    active boolean
+    role VARCHAR(5) NOT NULL
 );
 
-INSERT INTO user VALUES(1,'user1','1234abcd',null);
-INSERT INTO user VALUES(2,'user2','1234abcde', null);
+INSERT INTO user VALUES('user1','1234abcd','USER');
+INSERT INTO user VALUES('user2','1234abcde','ADMIN');
 
 drop table user;
 show tables;
