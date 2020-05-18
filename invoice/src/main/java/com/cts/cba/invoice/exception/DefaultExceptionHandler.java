@@ -18,7 +18,7 @@ public class DefaultExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorMessage> handleException(Exception exception) {
-        log.error("Respone: {}", exception.getMessage());
+        log.error("Respond: {}", exception.getMessage());
         ErrorMessage response = new ErrorMessage(exception.getMessage(),
                 "Kindly check the path variables or end points !");
 

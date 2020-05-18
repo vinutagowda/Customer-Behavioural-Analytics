@@ -1,19 +1,5 @@
-create database cba_;
-use cba_;
-
 create database cba;
 use cba;
-
-CREATE TABLE user (
-    user_name VARCHAR(15) NOT NULL UNIQUE,
-    password VARCHAR(20) NOT NULL,
-    role VARCHAR(5) NOT NULL
-);
-
-INSERT INTO user VALUES('user1','1234abcd','USER');
-INSERT INTO user VALUES('user2','1234abcde','ADMIN');
-
-drop table user;
 show tables;
 drop database cba;
 

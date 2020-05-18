@@ -1,7 +1,9 @@
 package com.cts.cba.invoice.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import com.cts.cba.invoice.entity.Invoice;
 import com.cts.cba.invoice.service.InvoiceService;
@@ -35,7 +37,7 @@ public class InvoiceController {
     @ApiOperation(value = "Uploads invoices", notes = "Uploads invoices to database")
     public void invoiceUpload(@ApiParam(value = "Entire invoice", required = true) @RequestBody Invoice invoice) {
 
-        logger.debug("Resquest: Invoice");
+        logger.info("Resquest: Invoice");
         if (invoice.equals(null)) {
             throw new RuntimeException("Upload Failed !");
         } else {
@@ -47,10 +49,13 @@ public class InvoiceController {
 
     @RequestMapping(method = RequestMethod.DELETE, value = "/deleteinvoice/{invoiceId}")
     @ApiOperation(value = "Deletes invoices", notes = "Deletes invoices to database based on Invoice ID")
-    public void invoiceDelete(@ApiParam(value = "Invoice ID to be deleted", required = true) @PathVariable int invoiceId) {
-        
+    public void invoiceDelete(
+            @ApiParam(value = "Invoice ID to be deleted", required = true) @PathVariable int invoiceId) {
+
+        List<Invoice> inv = service.getAll();
+
         logger.debug("Resquest: Delete {}", invoiceId);
-        Map<Integer, Invoice> map=new HashMap<>();
+        Map<Integer, Invoice> map = inv.stream().collect(Collectors.toMap(Invoice::getInvoiceId, invoice -> invoice));
         if (!map.containsKey(invoiceId)) {
             throw new RuntimeException("Delete Failed !");
         } else {

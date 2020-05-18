@@ -32,7 +32,7 @@ public class DemoApplication {
 	public ApiInfo apiDetails() {
 		return new ApiInfo("Product",
 				"Enables genenerating a quantitative statistical report of purchase pattern of products. Generally deals with list of products.",
-				"1.0", "Free To Use", new Contact("vinuta s", "http://localhost:9191/product", "vinuta.s@cognizant.com"),
+				"1.0", "Free To Use", new Contact("vinuta.s", "http://localhost:9191/product", "vinuta.s@cognizant.com"),
 				"API License", "http://localhost:9191/product", Collections.emptyList());
 	}
 

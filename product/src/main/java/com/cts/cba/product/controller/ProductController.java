@@ -35,7 +35,7 @@ public class ProductController {
     // }
 
     @RequestMapping(method = RequestMethod.GET, value = "/soldproductlist/{timeDuration}/{customerCategory}")
-    @ApiOperation(value = "Gets list of discounted/non-discounted products", notes = "Generates list of discounted sales based on time interval, customer category")
+    @ApiOperation(value = "Gets list of products", notes = "Generates list of products and their sales details based on time interval, customer category")
     public List<Product> getProductSold(
             @ApiParam(value = "Time duration in months", required = true) @PathVariable int timeDuration,
             @ApiParam(value = "Category of customers", required = true) @PathVariable String customerCategory) {
@@ -76,7 +76,7 @@ public class ProductController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/solddiscountlist/{timeDuration}/{customerCategory}")
-    @ApiOperation(value = "Gets list of products", notes = "Generates list of products and their sales details based on time interval, customer category")
+    @ApiOperation(value = "Gets list of discounted/non-discounted products", notes = "Generates list of discounted sales based on time interval, customer category")
     public List<Product> getAllProductByDiscount(
             @ApiParam(value = "Time duration in months", required = true) @PathVariable int timeDuration,
             @ApiParam(value = "Category of customers", required = true) @PathVariable String customerCategory) {

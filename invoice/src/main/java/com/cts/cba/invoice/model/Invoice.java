@@ -1,11 +1,11 @@
 package com.cts.cba.invoice.model;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class Invoice {
 	private int invoiceId;
-	private LocalDate invoiceDate;
+	private LocalDateTime invoiceDate;
 	private double tax;
 	private double totalPrice;
 	private String paymentMode;
@@ -17,7 +17,7 @@ public class Invoice {
 	public Invoice() {
 	}
 
-	public Invoice(int invoiceId, LocalDate invoiceDate, double tax, double totalPrice, String paymentMode,
+	public Invoice(int invoiceId, LocalDateTime invoiceDate, double tax, double totalPrice, String paymentMode,
 			List<Product> product, Customer customer) {
 		this.invoiceId = invoiceId;
 		this.invoiceDate = invoiceDate;
@@ -36,11 +36,11 @@ public class Invoice {
 		this.invoiceId = invoiceId;
 	}
 
-	public LocalDate getInvoiceDate() {
+	public LocalDateTime getInvoiceDate() {
 		return invoiceDate;
 	}
 
-	public void setInvoiceDate(LocalDate invoiceDate) {
+	public void setInvoiceDate(LocalDateTime invoiceDate) {
 		this.invoiceDate = invoiceDate;
 	}
 
